@@ -1,24 +1,9 @@
-import axios from "axios";
-
-const instance = axios.create({
-    baseURL: 'https://alpha-vantage.p.rapidapi.com',
+export const twelveApiOptions = {
+    method: 'GET',
     headers: {
-        'Content-Type':'application/octet-stream',
-        'x-rapidapi-host':'alpha-vantage.p.rapidapi.com',
-        'x-rapidapi-key': process.env.RAPIDAPI_KEY,
+        'X-RapidAPI-Key': 'c387316641msh2b0fbf9de1eb17dp185efajsn36756cefb410',
+        'X-RapidAPI-Host': 'twelve-data1.p.rapidapi.com',
     }
-});
+};
 
-export default {
-    stockTimeSeries: (symbol) =>
-    instance({
-        'method':'GET',
-        'url':'/query',
-        'params': {
-            'outputsize':'compact',
-            'datatype':'json',
-            'function':'TIME_SERIES_DAILY_ADJUSTED',
-            'symbol': symbol.toUpperCase()
-        },
-    })
-}
+export const TWELVE_API_URL = 'https://twelve-data1.p.rapidapi.com';

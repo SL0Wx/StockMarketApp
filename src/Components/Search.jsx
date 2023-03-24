@@ -1,28 +1,35 @@
 import { AsyncPaginate } from "react-select-async-paginate";
 import { useState } from "react";
-import api from "../api";
+import { TWELVE_API_URL, twelveApiOptions } from "../api";
 
-function Search({ data, setData }) {
+function Search({ onSearchChange }) {
     const [search, setSearch] = useState(null);
   
     const loadOptions = (inputValue) => {
-        api.stockTimeSeries(search)
-        .then((response) => {
-            setData(response.data);
-            console.log(response);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+        return fetch(`${TWELVE_API_URL}/symbol_search?symbol=${inputValue}&outputsize=5`, twelveApiOptions)
+            .then(response => response.json())
+            .then(response => {
+                //response.data.filter
+                return {
+                    options: response.data.map(company => {
+                            return {
+                                value: company.symbol,
+                                label: `${company.symbol}, ${company.instrument_name} (${company.country})`,
+                        }
+                    })
+                }
+            })
+            .catch(err => console.log(err));
     };
 
     const handleSearch = (searchData) => {
         setSearch(searchData);
+        onSearchChange(searchData);
     }
 
     return (
     <>
-        <AsyncPaginate placeholder="Find by company symbol" debounceTimeout={600} onChange={handleSearch} loadOptions={loadOptions} />
+        <AsyncPaginate placeholder="Find by company symbol" debounceTimeout={600} value={search} onChange={handleSearch} loadOptions={loadOptions} />
     </>
   )
 }
