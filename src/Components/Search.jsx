@@ -2,16 +2,16 @@ import { AsyncPaginate } from "react-select-async-paginate";
 import { useState } from "react";
 import { TWELVE_API_URL, twelveApiOptions } from "../api";
 
-function Search({ onSearchChange }) {
+function Search({ onSearchChange, setSearchData }) {
     const [search, setSearch] = useState(null);
   
     const loadOptions = (inputValue) => {
         return fetch(`${TWELVE_API_URL}/symbol_search?symbol=${inputValue}&outputsize=5`, twelveApiOptions)
             .then(response => response.json())
             .then(response => {
-                //response.data.filter
+                const data = response?.data.filter(company => company.exchange === "NASDAQ");
                 return {
-                    options: response.data.map(company => {
+                    options: data.map(company => {
                             return {
                                 value: company.symbol,
                                 label: `${company.symbol}, ${company.instrument_name} (${company.country})`,
@@ -24,6 +24,7 @@ function Search({ onSearchChange }) {
 
     const handleSearch = (searchData) => {
         setSearch(searchData);
+        setSearchData(searchData);
         onSearchChange(searchData);
     }
 
