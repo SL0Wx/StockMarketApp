@@ -2,7 +2,7 @@ import { AsyncPaginate } from "react-select-async-paginate";
 import { useState } from "react";
 import { TWELVE_API_URL, twelveApiOptions } from "../api";
 
-function Search({ onSearchChange, setSearchData }) {
+function Search({ favorites, onSearchChange, setSearchData }) {
     const [search, setSearch] = useState(null);
   
     const loadOptions = (inputValue) => {
@@ -28,9 +28,27 @@ function Search({ onSearchChange, setSearchData }) {
         onSearchChange(searchData);
     }
 
+    function handleSearchFavorites(company) {
+        setSearch(company);
+        setSearchData(company);
+        onSearchChange(company);
+    }
+
     return (
     <>
         <AsyncPaginate placeholder="Find by company symbol" debounceTimeout={600} value={search} onChange={handleSearch} loadOptions={loadOptions} />
+        {favorites.length > 0 && (
+            <div className="favContainer">
+                <div className="favorites">
+                    <label className="title"><b>Favorites</b></label>
+                    {favorites.map((company, i) => (
+                        <div className="favoritesList">
+                            <label className="favoritesListItem" key={i} onClick={() => handleSearchFavorites(company)}>{company.label}</label>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        )}
     </>
   )
 }

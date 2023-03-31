@@ -7,14 +7,120 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
+}
+
+.container {
+  display: inline-flex;
+  justify-content: center;
+  margin: 0 5% 5% 5%;
+}
+
+.companyInfo {
+  width: 400px;
+  border-radius: 6px;
+  box-shadow: 10px -2px 20px 2px rgb(0 0 0 / 30%);
+  color: white;
+  background-color: #333333;
+  margin: 20px auto 0 auto;
+  padding: 10px 20px 20px 20px;
+  position: relative;
+}
+
+.header {
+  text-align: center;
+}
+
+.favContainer {
+  display: inline-flex;
+  justify-content: center;
+  width: 40%;
+  margin: 0 1% 5% 5%;
+}
+
+.favorites {
+  width: 300px;
+  border-radius: 6px;
+  box-shadow: 10px -2px 20px 2px rgb(0 0 0 / 30%);
+  color: white;
+  background-color: #333333;
+  padding: 20px;
+  text-align: center;
+}
+
+.favoritesList {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.favoritesListItem {
+  margin: 10px;
+  cursor: pointer;
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+.favorite {
+  width: 25px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.details {
+  width: 100%;
+  padding-left: 20px;
+}
+
+.detailsLabel {
+  font-size: 18px;
+}
+
+.parameterRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.parameterLabel {
+  text-align: left;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.parameterValue {
+  text-align: right;
+  font-weight: 600;
+  font-size: 12px;
 }
 
 .btnGroup {
+  width: 100%;
+  display: flex;
+}
+
+.timeLineBtnGroup {
   width: 25%;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
+  display: inline-flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.chartTypeBtnGroup {
+  width: 25%;
+  margin: 0 auto;
+  display: inline-flex;
+  justify-content: space-around;
   padding: 20px;
 }
 
@@ -38,9 +144,9 @@ code {
 .chart {
   background-color: red;
   width: 100%;
-  height: 700px;
+  height: auto;
   border-radius: 6px;
   box-shadow: 10px -2px 20px 2px rgb(0 0 0 / 30%);
-  background-color: #202020;
+  background-color: #222222;
   margin: 20px 0;
 }

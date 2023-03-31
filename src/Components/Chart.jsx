@@ -1,14 +1,17 @@
-import React from 'react';
-import { Line } from 'react-chartjs-2';
+import React, { useState } from 'react';
+import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS } from "chart.js/auto";
 import ButtonGroup from './ButtonGroup';
 
-function Chart({ data, setInterval, setOutputSize }) {
+function Chart({ data, setInterval, setOutputSize, setLoadData }) {
+  const [bar, setBar] = useState(false);
+  
   return (
     <div className="chart">
         <ButtonGroup
-            setInterval={setInterval} setOutputSize={setOutputSize}
-            buttons={[
+            setInterval={setInterval} setOutputSize={setOutputSize} 
+            setLoadData={setLoadData} setBar={setBar}
+            timeLineBtns={[
                 {
                     label: "1M",
                     value: "1day",   
@@ -18,9 +21,21 @@ function Chart({ data, setInterval, setOutputSize }) {
                     label: "1Y",
                     value: "1month",
                     outputSize: "13",
-                }]} 
+                }]}
+          chartTypeBtns={[
+            {
+              label: "Linear",
+            },
+            {
+              label: "Bar",
+            }
+          ]} 
         />
-        <Line data={data} />
+        {bar ? (
+          <Bar data={data} />
+        ) : (
+          <Line data={data} />
+        )}
     </div>
   )
 }

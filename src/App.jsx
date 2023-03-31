@@ -12,20 +12,26 @@ function App() {
   const [timeSeries, setTimeSeries] = useState(null);
   const [interval, setInterval] = useState("1day");
   const [outputSize, setOutputSize] = useState("22");
+  const [loadData, setLoadData] = useState(false);
+  const [favorites, setFavorites] = useState([]);
 
   const handleOnSearchChange = (searchData) => {
+    console.log(searchData);
     const symbol = searchData.value;
     fetch(`${TWELVE_API_URL}/time_series?symbol=${symbol}&interval=${interval}&outputsize=${outputSize}&format=json`, twelveApiOptions)
       .then(response => response.json())
       .then(response => {
-        setCompanyData(response.meta);
+        setCompanyData({
+          name: searchData.label,
+          values: response.meta,
+        });
         setTimeSeries({
           labels: response.values.reverse().map((data) => data.datetime),
           datasets: [
             {
               label: "Average Value in USD",
-              data: response.values.reverse().map((data) => data.close),
-              backgroundColor: ["rgba(75,192,192,1)"],
+              data: response.values.map((data) => data.close),
+              backgroundColor: "#09ad03",
               borderColor: "green",
               borderWidth: 2,
             },
@@ -35,16 +41,16 @@ function App() {
   }
 
   useEffect(() => {
-    handleOnSearchChange(searchData);
+    if (loadData) handleOnSearchChange(searchData);
   }, [interval, outputSize])
 
   return (
     <div className="App">
-      <Search onSearchChange={handleOnSearchChange} setSearchData={setSearchData} />
+      <Search favorites={favorites} onSearchChange={handleOnSearchChange} setSearchData={setSearchData} />
       {timeSeries && companyData && (
         <>
-        <CompanyInfo data={companyData} />
-        <Chart data={timeSeries} setInterval={setInterval} setOutputSize={setOutputSize} />
+        <CompanyInfo data={companyData} favorites={favorites} setFavorites={setFavorites} />
+        <Chart data={timeSeries} setInterval={setInterval} setOutputSize={setOutputSize} setLoadData={setLoadData} />
         </>
       )}
     </div>
