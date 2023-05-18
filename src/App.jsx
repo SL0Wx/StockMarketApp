@@ -29,7 +29,7 @@ function App() {
           labels: response.values.reverse().map((data) => data.datetime),
           datasets: [
             {
-              label: "Average Value in USD",
+              label: "Close Value in USD",
               data: response.values.map((data) => data.close),
               backgroundColor: "#09ad03",
               borderColor: "green",
