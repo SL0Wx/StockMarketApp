@@ -9,6 +9,7 @@ import Chart from './Components/Chart';
 function App() {
   const [searchData, setSearchData] = useState("");
   const [companyData, setCompanyData] = useState(null);
+  const [closeValue, setCloseValue] = useState(null);
   const [timeSeries, setTimeSeries] = useState(null);
   const [interval, setInterval] = useState("1day");
   const [outputSize, setOutputSize] = useState("22");
@@ -16,11 +17,11 @@ function App() {
   const [favorites, setFavorites] = useState([]);
 
   const handleOnSearchChange = (searchData) => {
-    console.log(searchData);
     const symbol = searchData.value;
     fetch(`${TWELVE_API_URL}/time_series?symbol=${symbol}&interval=${interval}&outputsize=${outputSize}&format=json`, twelveApiOptions)
       .then(response => response.json())
       .then(response => {
+        setCloseValue(response.values[0].close);
         setCompanyData({
           name: searchData.label,
           values: response.meta,
@@ -50,7 +51,9 @@ function App() {
       {timeSeries && companyData && (
         <>
         <CompanyInfo data={companyData} favorites={favorites} setFavorites={setFavorites} />
-        <Chart data={timeSeries} setInterval={setInterval} setOutputSize={setOutputSize} setLoadData={setLoadData} />
+        <div className="chartBox">
+          <Chart data={timeSeries} closeValue={closeValue} setInterval={setInterval} setOutputSize={setOutputSize} setLoadData={setLoadData} />
+        </div>
         </>
       )}
     </div>

@@ -103,6 +103,17 @@ code {
   font-size: 12px;
 }
 
+.chartBox {
+  display: flex;
+  justify-content: center;
+}
+
+.closeVal {
+  color: white;
+  text-align: center;
+  padding-top: 10px;
+}
+
 .btnGroup {
   width: 100%;
   display: flex;
@@ -143,7 +154,7 @@ code {
 
 .chart {
   background-color: red;
-  width: 100%;
+  width: 85%;
   height: auto;
   border-radius: 6px;
   box-shadow: 10px -2px 20px 2px rgb(0 0 0 / 30%);

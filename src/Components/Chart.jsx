@@ -3,11 +3,12 @@ import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS } from "chart.js/auto";
 import ButtonGroup from './ButtonGroup';
 
-function Chart({ data, setInterval, setOutputSize, setLoadData }) {
+function Chart({ data, closeValue, setInterval, setOutputSize, setLoadData }) {
   const [bar, setBar] = useState(false);
   
   return (
     <div className="chart">
+        <h2 className="closeVal">Close Value: {parseFloat(closeValue).toFixed(2)} USD</h2>
         <ButtonGroup
             setInterval={setInterval} setOutputSize={setOutputSize} 
             setLoadData={setLoadData} setBar={setBar}

@@ -42,8 +42,8 @@ function Search({ favorites, onSearchChange, setSearchData }) {
                 <div className="favorites">
                     <label className="title"><b>Favorites</b></label>
                     {favorites.map((company, i) => (
-                        <div className="favoritesList">
-                            <label className="favoritesListItem" key={i} onClick={() => handleSearchFavorites(company)}>{company.label}</label>
+                        <div className="favoritesList" key={i}>
+                            <label className="favoritesListItem" onClick={() => handleSearchFavorites(company)}>{company.label}</label>
                         </div>
                     ))}
                 </div>
